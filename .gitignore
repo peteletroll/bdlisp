@@ -1,0 +1,6 @@
+*.o
+*.a
+*.so
+bdlisp
+bdlisp0
+bdlisp1
