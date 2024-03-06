@@ -404,40 +404,6 @@ void LISPfpecatch(int sig)
 	return;
 }
 
-#ifdef MATHERR
-
-int matherr_off(struct exception *e)
-{
-	int ret = 0;
-
-	/* printf("matherr %d\n", e->type); */
-	switch (e->type) {
-	case DOMAIN:
-		matherrno = ME_DOMAIN;
-		ret = 1;
-		break;
-	case SING:
-	case OVERFLOW:
-		matherrno = ME_RANGE;
-		ret = 1;
-		break;
-	case UNDERFLOW:
-		e->retval = 0.0;
-		ret = 1;
-		break;
-	case TLOSS:
-		matherrno = ME_TLOSS;
-		ret = 1;
-		break;
-	default:
-		matherrno = -1;
-		break;
-	}
-	return ret;
-}
-
-#endif
-
 void LISPmathtry(void)
 {
 	matherrno = errno = 0;
